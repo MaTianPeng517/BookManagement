@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.msss.dao.BookDao">
+
+    <!--配置resultMap 别名-->
+    <resultMap id="bookMap" type="cn.msss.entity.Book">
+        <id property="id" column="id"></id>
+        <result property="book_name" column="book_name"></result>
+        <result property="book_author" column="book_author"></result>
+        <result property="book_price" column="book_price"></result>
+        <result property="book_number" column="book_number"></result>
+    </resultMap>
+
+    <sql id="querys">
+      SELECT `id`,`book_name`,`book_author`,`book_price`,`book_number` FROM `book`
+    </sql>
+
+    <!--查询-->
+    <select id="query" resultMap="bookMap">
+        <include refid="querys"></include>
+    </select>
+
+    <!--添加-->
+    <insert id="append" parameterType="cn.msss.entity.Book">
+        INSERT INTO `book`(`book_name`,`book_author`,`book_price`,`book_number`)VALUES(#{book_name},#{book_author},#{book_price},#{book_number})
+    </insert>
+
+    <!--修改-->
+    <update id="modify" parameterType="cn.msss.entity.Book">
+        UPDATE `book` SET `book_name`=#{book_name},`book_author`=#{book_author},`book_price`=#{book_price},`book_number`=#{book_number} WHERE `id`=#{id}
+    </update>
+
+    <!--删除-->
+    <delete id="amputate" parameterType="cn.msss.entity.Book">
+        DELETE FROM `book` WHERE id=#{id}
+    </delete>
+</mapper>

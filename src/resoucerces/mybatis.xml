@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration><!-- 更节点 配置信息-->
+
+    <!--加载连接四要素配置文件-->
+    <properties resource="jdbc.properties"></properties>
+
+    <!--设置别名-->
+    <typeAliases>
+        <!--所有cn.msss.entity包下的所有类的别名都是可以类名大写或小写-->
+        <package name="cn.msss.entity"></package>
+    </typeAliases>
+
+    <!--设置mybatis的运行环境-->
+    <environments default="mysql"> <!--default找到的id，只能用一个-->
+        <environment id="mysql"><!--可以定义多个环境-->
+            <transactionManager type="JDBC"/><!--后续事务的管理，统一交给spring容器-->
+            <dataSource type="POOLED"><!--数据源 ：  Tonmcat：JNDI   MyBatis：POOLED-->
+                <!--name为四要素，不可更改     value为我们配置的jdbc.properties中的信息key-->
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.userName}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!-- 连接小配置  xx.xml-->
+    <mappers>
+        <mapper resource="cn/msss/dao/BookDao.xml"></mapper>
+        <mapper resource="cn/msss/dao/Users.xml"></mapper>
+    </mappers>
+</configuration>
